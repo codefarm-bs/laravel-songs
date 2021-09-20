@@ -14,5 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return 'CodeFarm';
+});
+
+Route::get('/contact', function () {
+    return 'Contact Us!!!';
 });
