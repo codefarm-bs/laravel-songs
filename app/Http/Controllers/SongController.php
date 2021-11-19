@@ -9,11 +9,22 @@ class SongController extends Controller
 {
     public function list()
     {
-        $songs = Song::all();
+        $publishSongs = Song::published()->get();
+        $unPublishSongs = Song::unpublished()->get();
 
-        return view('internal.songs', [
-            'songs' => $songs
+        return view('songs.index', compact('publishSongs', 'unPublishSongs'));
+    }
+
+    public function store()
+    {
+        $data = \request()->validate([
+            'name' => 'required|min:3|max:120',
+            'publish' => 'required'
         ]);
+
+        Song::create($data);
+
+        return back();
     }
 }
-    
+

@@ -6,3 +6,4 @@ Route::view('/','home');
 Route::view('contact','contact');
 
 Route::get('songs', [\App\Http\Controllers\SongController::class, 'list']);
+Route::post('songs', [\App\Http\Controllers\SongController::class, 'store']);
