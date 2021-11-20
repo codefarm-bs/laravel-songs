@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Genre;
 use App\Models\Song;
-use Illuminate\Http\Request;
 
 class SongController extends Controller
 {
     public function list()
     {
-        $publishSongs = Song::published()->get();
-        $unPublishSongs = Song::unpublished()->get();
+        $songs = Song::all();
+        $genres = Genre::all();
 
-        return view('songs.index', compact('publishSongs', 'unPublishSongs'));
+        return view('songs.index', compact('songs', 'genres'));
     }
 
     public function store()
     {
         $data = \request()->validate([
             'name' => 'required|min:3|max:120',
-            'publish' => 'required'
+            'genre_id' => 'required'
         ]);
 
         Song::create($data);

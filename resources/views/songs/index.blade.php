@@ -23,11 +23,12 @@
                     @endif
                 </div>
                 <div class="col-sm-5 mb-3">
-                    <label for="publish" class="form-label">وضعیت آهنگ</label>
-                    <select class="form-select" id="publish" name="publish">
-                        <option selected disabled>انتخاب وضعیت</option>
-                        <option value="0">عدم انتشار</option>
-                        <option value="1">انتشار</option>
+                    <label for="genre" class="form-label">ژانر آهنگ</label>
+                    <select class="form-select" id="genre" name="genre_id">
+                        <option selected disabled>انتخاب ژانر</option>
+                        @foreach($genres as $genre)
+                            <option value="{{ $genre->id }}">{{ $genre->name  }}</option>
+                        @endforeach
                     </select>
                     @if($errors->first('name'))
                         <div class="alert alert-danger d-flex align-items-center mt-2" role="alert">
@@ -44,20 +45,13 @@
     </div>
     <div class="row">
         <div class="col-6">
-            <h4>لیست آهنگ‌های منتشر شده</h4>
+            <h4>لیست آهنگ‌ها</h4>
             <hr>
             <ul>
-                @foreach($publishSongs as $song)
-                    <li>{{ $song->name }}</li>
-                @endforeach
-            </ul>
-        </div>
-        <div class="col-6">
-            <h4>لیست آهنگ‌های در حال انتشار</h4>
-            <hr>
-            <ul>
-                @foreach($unPublishSongs as $song)
-                    <li>{{ $song->name }}</li>
+                @foreach($songs as $song)
+                    <li>
+                        {{ $song->name }} <span class="text-secondary">({{ $song->genre->name }})</span>
+                    </li>
                 @endforeach
             </ul>
         </div>
