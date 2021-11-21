@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SongController;
 
 Route::view('/','home');
+Route::view('about','about');
 Route::view('contact','contact');
 
-Route::get('songs', [\App\Http\Controllers\SongController::class, 'list']);
-Route::post('songs', [\App\Http\Controllers\SongController::class, 'store']);
+Route::resource('songs', SongController::class);
+

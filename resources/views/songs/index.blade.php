@@ -6,54 +6,34 @@
     <div class="row">
         <div class="col-12">
             <h1>آخرین آهنگ‌ها</h1>
+            <div class="py-2"><a href="songs/create">افزودن آهنگ جدید</a></div>
         </div>
     </div>
     <div class="row">
         <div class="col-12">
-            <form class="mb-4 mt-4" method="POST" action="songs">
-                <div class="col-sm-5 mb-3">
-                    <label for="name" class="form-label">نام آهنگ</label>
-                    <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}">
-                    @if($errors->first('name'))
-                        <div class="alert alert-danger d-flex align-items-center mt-2" role="alert">
-                            <div>
-                                {{ $errors->first('name') }}
-                            </div>
-                        </div>
-                    @endif
-                </div>
-                <div class="col-sm-5 mb-3">
-                    <label for="genre" class="form-label">ژانر آهنگ</label>
-                    <select class="form-select" id="genre" name="genre_id">
-                        <option selected disabled>انتخاب ژانر</option>
-                        @foreach($genres as $genre)
-                            <option value="{{ $genre->id }}">{{ $genre->name  }}</option>
-                        @endforeach
-                    </select>
-                    @if($errors->first('name'))
-                        <div class="alert alert-danger d-flex align-items-center mt-2" role="alert">
-                            <div>
-                                {{ $errors->first('publish') }}
-                            </div>
-                        </div>
-                    @endif
-                </div>
-                <button type="submit" class="btn btn-primary">افزودن</button>
-                @csrf()
-            </form>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <h4>لیست آهنگ‌ها</h4>
+            <div class="row pt-2">
+                <div class="fw-bold col-2">#</div>
+                <div class="fw-bold col-4">نام آهنگ</div>
+                <div class="fw-bold col-2">سبک</div>
+            </div>
             <hr>
-            <ul>
-                @foreach($songs as $song)
-                    <li>
-                        {{ $song->name }} <span class="text-secondary">({{ $song->genre->name }})</span>
-                    </li>
-                @endforeach
-            </ul>
+            @foreach($songs as $song)
+                <div class="row py-1">
+                    <div class="col-2">{{ $song->id }}</div>
+                    <div class="col-4 text-dark">
+                        <a href="songs/{{ $song->id }}">{{ $song->name }}</a>
+                    </div>
+                    <div class="col-2 text-success">{{ $song->genre->name }}</div>
+                    <div class="col-1 text-success"><a href="songs/{{ $song->id }}/edit">ویرایش</a></div>
+                    <div class="col-1 text-success">
+                        <form action="songs/{{ $song->id }}" method="POST">
+                            @method('delete')
+                            @csrf
+                            <button type="submit" class="btn btn-danger btn-sm">حذف</button>
+                        </form>
+                    </div>
+                </div>
+            @endforeach
         </div>
     </div>
 @endsection
