@@ -18,6 +18,13 @@
 <div class="container">
     @include('nav')
     <div class="container-xxl my-md-4 bd-layout">
+        @if(session()->has('message'))
+            <div class="col-6">
+                <div class="alert alert-success" role="alert">
+                    {{ session()->get('message') }}
+                </div>
+            </div>
+        @endif
         @yield('content')
     </div>
 </div>
