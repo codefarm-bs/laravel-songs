@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-5">
-    <div class="container col-md-8">
+    <div class="container col-md-9">
         <a class="navbar-brand" href="{{ url('/') }}">
             <img src="https://percept.ir/um/5553/614263bd58b06.jpg" class="rounded-circle" height="30" alt="logo">
         </a>

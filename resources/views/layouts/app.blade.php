@@ -18,7 +18,7 @@
 <body>
 <div id="app">
     @include('nav')
-    <div class="container col-md-8">
+    <div class="container col-md-9">
         <div class="row justify-content-center mx-4">
             @if(session()->has('message'))
                 <div class="col-6">

@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Song;
 use App\Models\Genre;
+use Illuminate\Support\Facades\Auth;
 
 class SongController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+
     public function index()
     {
         $songs = Song::all();
@@ -26,6 +32,10 @@ class SongController extends Controller
         $data = \request()->validate([
             'name' => 'required|min:3|max:120',
             'genre_id' => 'required'
+        ]);
+
+        $data = array_merge($data, [
+            'user_id' => Auth::id()
         ]);
 
         Song::create($data);

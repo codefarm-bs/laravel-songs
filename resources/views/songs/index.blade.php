@@ -18,14 +18,21 @@
                 <a href="songs/{{ $song->id }}">{{ $song->name }}</a>
             </div>
             <div class="col-2 text-success">{{ $song->genre->name }}</div>
-            <div class="col-1 text-success"><a href="songs/{{ $song->id }}/edit">{{ __('song.edit') }}</a></div>
-            <div class="col-1 text-success">
-                <form action="songs/{{ $song->id }}" method="POST">
-                    @method('delete')
-                    @csrf
-                    <button type="submit" class="btn btn-danger btn-sm text-white">{{ __('song.delete') }}</button>
-                </form>
-            </div>
+
+            @can('delete', $song)
+                <div class="col-1 text-success mx-2">
+                    <a href="songs/{{ $song->id }}/edit">{{ __('song.edit') }}</a>
+                </div>
+                <div class="col-1 text-success">
+                    <form action="songs/{{ $song->id }}" method="POST">
+                        @method('delete')
+                        @csrf
+                        <button type="submit" class="btn btn-danger btn-sm text-white">
+                            {{ __('song.delete') }}
+                        </button>
+                    </form>
+                </div>
+            @endcan
         </div>
     @endforeach
 @endsection

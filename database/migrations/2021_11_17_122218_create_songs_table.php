@@ -12,7 +12,14 @@ class CreateSongsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->unsignedInteger('genre_id');
+            $table->unsignedInteger('user_id');
             $table->timestamps();
+
+            $table->foreign('user_id')->on('users')->references('id')
+                ->cascadeOnDelete();
+
+            $table->foreign('genre_id')->on('genres')->references('id')
+                ->cascadeOnDelete();
         });
     }
 
