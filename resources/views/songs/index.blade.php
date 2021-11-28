@@ -8,6 +8,7 @@
     <div class="row pt-2">
         <div class="fw-bold col-2">#</div>
         <div class="fw-bold col-4">{{ __('song.name') }}</div>
+        <div class="fw-bold col-2">{{ __('song.user') }}</div>
         <div class="fw-bold col-2">{{ __('song.genre') }}</div>
     </div>
     <hr>
@@ -17,6 +18,7 @@
             <div class="col-4 text-dark">
                 <a href="songs/{{ $song->id }}">{{ $song->name }}</a>
             </div>
+            <div class="col-2 text-secondary">{{ $song->user->name }}</div>
             <div class="col-2 text-success">{{ $song->genre->name }}</div>
 
             @can('delete', $song)
@@ -35,5 +37,9 @@
             @endcan
         </div>
     @endforeach
+
+    <div class="row py-5">
+        <div class="d-flex justify-content-center">{{ $songs->links('pagination::bootstrap-4') }}</div>
+    </div>
 @endsection
 
