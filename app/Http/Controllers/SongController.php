@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewSongCreatedEvent;
 use App\Models\Song;
 use App\Models\Genre;
 use Illuminate\Support\Facades\Auth;
@@ -34,11 +35,9 @@ class SongController extends Controller
             'genre_id' => 'required'
         ]);
 
-        $data = array_merge($data, [
-            'user_id' => Auth::id()
-        ]);
+        $song = Auth::user()->songs()->create($data);
 
-        Song::create($data);
+        event(new NewSongCreatedEvent(Auth::user(), $song));
 
         return redirect('songs');
     }
