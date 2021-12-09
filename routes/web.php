@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Song;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SongController;
 use App\Http\Controllers\ContactController;
@@ -32,3 +33,22 @@ Route::group(['prefix' => 'songs'], function () {
 Route::resource('contact', ContactController::class)->only(['index', 'store']);
 
 Route::post('locale', [LocaleController::class, 'store'])->name('locale.switch');
+
+Route::get('/test', function () {
+//    \Illuminate\Support\Facades\Queue::push(new \App\Jobs\NewsletterJob());
+//    \Illuminate\Support\Facades\Queue::later(30, new \App\Jobs\NewsletterJob());
+//    \Illuminate\Support\Facades\Queue::pushOn('jobs_queue', new \App\Jobs\NewsletterJob());
+//    \Illuminate\Support\Facades\Queue::laterOn('jobs_queue', 30 , new \App\Jobs\NewsletterJob());
+//
+//    \Illuminate\Support\Facades\Queue::bulk([
+//        new \App\Jobs\NewsletterJob(),
+//        new \App\Jobs\InvoiceJob()
+//    ], null , 'jobs_queue');
+
+//    \App\Jobs\NewsletterJob::dispatch();
+
+//    (new \App\Jobs\NewsletterJob())->dispatch()->onQueue('jobs_queue')->delay(30);
+
+//    dispatch(new \App\Jobs\NewsletterJob())->onQueue('jobs_queue')->delay(30);
+
+});

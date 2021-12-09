@@ -17,3 +17,19 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
+
+
+Artisan::command('song:genre-clean', function () {
+
+    $this->info('cleaning...');
+
+    \App\Models\Genre::whereDoesntHave('songs')
+        ->get()
+        ->each(function ($genre) {
+            $genre->delete();
+
+            $this->warn($genre->name . ' is deleted');
+        });
+
+})->purpose('Clear unused genres');
+
