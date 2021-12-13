@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Events\NewSongCreatedEvent;
-use App\Models\Song;
 use App\Models\Genre;
+use App\Models\Song;
 use Illuminate\Support\Facades\Auth;
 
 class SongController extends Controller
@@ -12,6 +12,8 @@ class SongController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except(['index', 'show']);
+        $this->middleware('can:delete, App\Models\Song')->only('delete');
+        $this->middleware('can:create, App\Models\Song')->only('create');
     }
 
     public function index()
@@ -19,6 +21,13 @@ class SongController extends Controller
         $songs = Song::paginate(15);
 
         return view('songs.index', compact('songs'));
+    }
+
+    public function trashes()
+    {
+        $songs = Song::withTrashed()->whereNotNull('deleted_at')->paginate(15);
+
+        return view('songs.trashes', compact('songs'));
     }
 
     public function create()
@@ -71,6 +80,20 @@ class SongController extends Controller
         $song->delete();
 
         return redirect('songs');
+    }
+
+    public function restore($id)
+    {
+        Song::withTrashed()->find($id)->restore();
+
+        return back();
+    }
+
+    public function forceDelete($id)
+    {
+        Song::withTrashed()->find($id)->forceDelete();
+
+        return back();
     }
 }
 
